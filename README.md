@@ -1,2 +1,2 @@
-# Gulses
+# gulses
 FPGA playground
