@@ -12,3 +12,12 @@ NET "seven_segment_display[0]" LOC = P114  | IOSTANDARD = LVCMOS33 | SLEW = SLOW
 NET "seven_segment_display_selection[2]" LOC = P124  | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 12;
 NET "seven_segment_display_selection[1]" LOC = P121  | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 12;
 NET "seven_segment_display_selection[0]" LOC = P120  | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 12; 
+
+NET "dp_switch[0]" LOC = P70   | PULLUP  | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 12;
+NET "dp_switch[1]" LOC = P69   | PULLUP  | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 12;
+NET "dp_switch[2]" LOC = P68   | PULLUP  | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 12;
+NET "dp_switch[3]" LOC = P64   | PULLUP  | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 12;
+NET "dp_switch[4]" LOC = P63   | PULLUP  | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 12;
+NET "dp_switch[5]" LOC = P60   | PULLUP  | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 12;
+NET "dp_switch[6]" LOC = P59   | PULLUP  | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 12;
+NET "dp_switch[7]" LOC = P58   | PULLUP  | IOSTANDARD = LVCMOS33 | SLEW = SLOW | DRIVE = 12;
