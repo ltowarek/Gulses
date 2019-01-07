@@ -22,6 +22,11 @@ type state_type is (instruction_selection, operand_a_selection, operand_b_select
 signal state : state_type := instruction_selection;
 signal reset : std_logic;
 
+signal alu_a : std_logic_vector(7 downto 0) := (others => '0');
+signal alu_b : std_logic_vector(7 downto 0) := (others => '0');
+signal alu_operation : std_logic_vector(3 downto 0) := (others => '0');
+signal alu_output : std_logic_vector(7 downto 0) := (others => '0');
+
 component display_bcd_number is
     port(
         input_clock : in std_logic;
@@ -43,9 +48,16 @@ component debounce_button is
         output_button : out std_logic);
 end component;
 
+component alu is
+    port(
+        a : in std_logic_vector(7 downto 0);
+        b : in std_logic_vector(7 downto 0);
+        operation : in std_logic_vector(3 downto 0);
+        output : out std_logic_vector(7 downto 0));
+end component;
+
 begin
-    number_binary <= not dp_switch;
-    
+   
     display : display_bcd_number
     port map(
         input_clock => input_clock, 
@@ -63,6 +75,13 @@ begin
         clock => input_clock,
         input_button => switch(0),
         output_button => switch_current_state);
+        
+    alu_0 : alu 
+    port map(
+        a => alu_a,
+        b => alu_b,
+        operation => alu_operation,
+        output => alu_output);
                 
     reset <= not switch(1);
     
@@ -82,25 +101,32 @@ begin
                 if switch_previous_state = '1' and switch_current_state = '0' then
                     state <= operand_a_selection;
                     switch_previous_state := '0';
+                    alu_operation <= not dp_switch(3 downto 0);
                 else
                     state <= instruction_selection;
+                    number_binary <= not dp_switch;
                 end if;
             when operand_a_selection =>
                 if switch_previous_state = '1' and switch_current_state = '0' then
                     state <= operand_b_selection;
                     switch_previous_state := '0';
+                    alu_a <= not dp_switch;
                 else
                     state <= operand_a_selection;
+                    number_binary <= not dp_switch;
                 end if;
             when operand_b_selection =>
                 if switch_previous_state = '1' and switch_current_state = '0' then
                     state <= execution;
                     switch_previous_state := '0';
+                    alu_b <= not dp_switch;
                 else
                     state <= operand_b_selection;
+                    number_binary <= not dp_switch;
                 end if;
             when execution =>
                 state <= execution;
+                number_binary <= alu_output;
             end case;
         end if;
     end process;
